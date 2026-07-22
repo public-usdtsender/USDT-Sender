@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-Chain USDT Sender – Send USDT Across TRC20, ERC20, BEP20</title>
+<meta name="description" content="Send USDT instantly across TRC20, ERC20, and BEP20 networks. Secure, non-custodial wallet-connect interface for MetaMask and TronLink. Fast, low-fee crypto transfers.">
+<meta name="keywords" content="send USDT multi-chain, USDT wallet transfer tool, TRC20 to ERC20 USDT, MetaMask USDT sender, crypto wallet transfer interface">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ptxsoftwarestore.netlify.app/usdt-sender/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Multi-Chain USDT Sender – Send USDT Across TRC20, ERC20, BEP20">
+<meta property="og:description" content="Non-custodial wallet-connect interface for sending USDT across Tron, Ethereum, and BNB Smart Chain.">
+<meta property="og:url" content="https://ptxsoftwarestore.netlify.app/usdt-sender/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Multi-Chain USDT Sender",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Non-custodial wallet-connect interface for sending USDT across TRC20, ERC20, and BEP20 networks."
+}
+</script>
+
+<style>
+  :root{
+    --navy:#0D1117;
+    --surface:#141B24;
+    --surface-2:#1B2430;
+    --cream:#EDE8DD;
+    --cream-dim:#B7B0A1;
+    --amber:#E8A33D;
+    --tron:#E8434F;
+    --eth:#7C93E8;
+    --bnb:#E8C13D;
+    --rule:#2A3441;
+    --radius:2px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--navy);
+    color:var(--cream);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{ font-family:'IBM Plex Mono',monospace; }
+  a{ color:inherit; }
+  img,svg{ display:block; max-width:100%; }
+
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 24px; }
+
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:rgba(13,17,23,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--rule);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .brand{ font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:15px; letter-spacing:0.02em; }
+  .brand span{ color:var(--amber); }
+  .nav-links{ display:flex; gap:28px; font-size:14px; color:var(--cream-dim); list-style:none; }
+  .nav-links a:hover{ color:var(--cream); }
+  .nav-cta{
+    font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:500;
+    background:var(--amber); color:var(--navy); padding:9px 16px;
+    border-radius:var(--radius); text-decoration:none;
+  }
+  @media (max-width:720px){ .nav-links{ display:none; } }
+
+  /* HERO */
+  .hero{ padding:88px 0 64px; border-bottom:1px solid var(--rule); }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--amber); margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow .dot{ width:6px; height:6px; border-radius:50%; background:var(--amber); animation:pulse 2s infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+  h1{
+    font-size:clamp(34px,5.2vw,56px); font-weight:800; letter-spacing:-0.02em;
+    max-width:14ch; margin-bottom:22px;
+  }
+  .hero p.lead{ font-size:18px; color:var(--cream-dim); max-width:52ch; margin-bottom:34px; }
+
+  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:56px; }
+  .btn{
+    font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:500;
+    padding:13px 22px; border-radius:var(--radius); text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{ background:var(--amber); color:var(--navy); }
+  .btn-ghost{ border:1px solid var(--rule); color:var(--cream); }
+  .btn-ghost:hover{ border-color:var(--cream-dim); }
+
+  /* RAIL — signature element: network ledger */
+  .rail{
+    border:1px solid var(--rule); border-radius:var(--radius); overflow:hidden;
+    background:var(--surface);
+  }
+  .rail-row{
+    display:grid; grid-template-columns:130px 1fr 100px; align-items:center;
+    padding:16px 20px; border-bottom:1px solid var(--rule);
+    font-family:'IBM Plex Mono',monospace; font-size:13px;
+  }
+  .rail-row:last-child{ border-bottom:none; }
+  .rail-row .chain{ display:flex; align-items:center; gap:10px; font-weight:600; }
+  .chip{ width:9px; height:9px; border-radius:50%; }
+  .chip.tron{ background:var(--tron); }
+  .chip.eth{ background:var(--eth); }
+  .chip.bnb{ background:var(--bnb); }
+  .rail-row .std{ color:var(--cream-dim); }
+  .rail-row .status{ color:var(--cream-dim); text-align:right; }
+  .rail-row .status.live::before{
+    content:'●'; color:#4ADE80; margin-right:6px; font-size:9px;
+  }
+
+  section{ padding:72px 0; border-bottom:1px solid var(--rule); }
+  .section-head{ margin-bottom:40px; max-width:60ch; }
+  .section-head .eyebrow{ margin-bottom:12px; }
+  h2{ font-size:clamp(24px,3.4vw,32px); font-weight:800; letter-spacing:-0.01em; margin-bottom:12px; }
+  .section-head p{ color:var(--cream-dim); font-size:16px; }
+
+  /* NETWORKS GRID */
+  .net-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); }
+  .net-card{ background:var(--surface); padding:28px 24px; }
+  .net-card .chip{ width:12px; height:12px; margin-bottom:16px; }
+  .net-card h3{ font-size:17px; font-weight:700; margin-bottom:6px; }
+  .net-card .wallet{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--cream-dim); margin-bottom:14px; }
+  .net-card p{ font-size:14px; color:var(--cream-dim); }
+  @media (max-width:720px){ .net-grid{ grid-template-columns:1fr; } }
+
+  /* HOW IT WORKS */
+  .steps{ counter-reset:step; }
+  .step{
+    display:grid; grid-template-columns:56px 1fr; gap:20px;
+    padding:24px 0; border-bottom:1px solid var(--rule);
+  }
+  .step:last-child{ border-bottom:none; }
+  .step .num{
+    font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--amber);
+    border:1px solid var(--rule); border-radius:50%; width:36px; height:36px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .step h3{ font-size:16px; font-weight:700; margin-bottom:4px; }
+  .step p{ font-size:14px; color:var(--cream-dim); max-width:56ch; }
+
+  /* SECURITY BANNER */
+  .banner{
+    background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--amber);
+    padding:24px 28px; border-radius:var(--radius); display:flex; gap:16px; align-items:flex-start;
+  }
+  .banner strong{ display:block; margin-bottom:4px; font-size:15px; }
+  .banner p{ font-size:14px; color:var(--cream-dim); }
+
+  /* FAQ */
+  details{ border-bottom:1px solid var(--rule); padding:18px 0; }
+  summary{
+    cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center;
+    font-weight:600; font-size:15px;
+  }
+  summary::-webkit-details-marker{ display:none; }
+  summary::after{ content:'+'; font-family:'IBM Plex Mono',monospace; color:var(--amber); font-size:18px; }
+  details[open] summary::after{ content:'–'; }
+  details p{ margin-top:12px; font-size:14px; color:var(--cream-dim); max-width:62ch; }
+
+  /* SUPPORT / FOOTER */
+  footer{ padding:64px 0 48px; }
+  .support-card{
+    background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius);
+    padding:36px 32px; margin-bottom:48px;
+  }
+  .support-card h2{ font-size:22px; margin-bottom:10px; }
+  .support-card p{ color:var(--cream-dim); font-size:14px; margin-bottom:20px; max-width:58ch; }
+  .support-list{ display:grid; grid-template-columns:repeat(2,1fr); gap:8px 24px; margin-bottom:24px; list-style:none; }
+  .support-list li{ font-size:14px; color:var(--cream-dim); }
+  .support-list li::before{ content:'—'; color:var(--amber); margin-right:8px; }
+  @media (max-width:560px){ .support-list{ grid-template-columns:1fr; } }
+
+  .foot-links{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; font-size:13px; color:var(--cream-dim); }
+  .foot-links a:hover{ color:var(--cream); }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <div class="brand">PTx<span>/</span>usdt-sender</div>
+    <ul class="nav-links">
+      <li><a href="#networks">Networks</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#support">Support</a></li>
+    </ul>
+    <a class="nav-cta" href="#connect">Connect Wallet</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap" id="connect" style="border-bottom:none;">
+    <div class="eyebrow"><span class="dot"></span>Non-custodial · Wallet-connect only</div>
+    <h1>Send USDT across any chain, from your own wallet.</h1>
+    <p class="lead">Connect MetaMask or TronLink and move USDT across TRC20, ERC20, and BEP20 without ever handing over custody of your funds.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#connect">Connect Wallet →</a>
+      <a class="btn btn-ghost" href="#how">See how it works</a>
+    </div>
+
+    <div class="rail">
+      <div class="rail-row">
+        <div class="chain"><span class="chip tron"></span>TRC20</div>
+        <div class="std">Tron · TronLink</div>
+        <div class="status live">Ready</div>
+      </div>
+      <div class="rail-row">
+        <div class="chain"><span class="chip eth"></span>ERC20</div>
+        <div class="std">Ethereum · MetaMask</div>
+        <div class="status live">Ready</div>
+      </div>
+      <div class="rail-row">
+        <div class="chain"><span class="chip bnb"></span>BEP20</div>
+        <div class="std">BNB Smart Chain · MetaMask</div>
+        <div class="status live">Ready</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="networks">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Supported networks</div>
+        <h2>Three chains, one interface</h2>
+        <p>Each network has its own fee profile and confirmation time. Pick the one that matches your recipient's wallet.</p>
+      </div>
+      <div class="net-grid">
+        <div class="net-card">
+          <span class="chip tron"></span>
+          <h3>TRC20 — Tron</h3>
+          <div class="wallet mono">via TronLink</div>
+          <p>Lowest fees, fastest confirmations. The default choice for most USDT transfers.</p>
+        </div>
+        <div class="net-card">
+          <span class="chip eth"></span>
+          <h3>ERC20 — Ethereum</h3>
+          <div class="wallet mono">via MetaMask</div>
+          <p>The most widely supported standard, with higher gas costs during network congestion.</p>
+        </div>
+        <div class="net-card">
+          <span class="chip bnb"></span>
+          <h3>BEP20 — BNB Smart Chain</h3>
+          <div class="wallet mono">via MetaMask</div>
+          <p>EVM-compatible with low fees and fast block times.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Process</div>
+        <h2>How it works</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="num mono">1</div>
+          <div><h3>Connect your wallet</h3><p>Link MetaMask for EVM chains or TronLink for Tron. Your keys stay in your wallet at all times.</p></div>
+        </div>
+        <div class="step">
+          <div class="num mono">2</div>
+          <div><h3>Select the network</h3><p>Choose TRC20, ERC20, or BEP20 to match the recipient's address type exactly.</p></div>
+        </div>
+        <div class="step">
+          <div class="num mono">3</div>
+          <div><h3>Enter address and amount</h3><p>Double-check the recipient address and network before continuing.</p></div>
+        </div>
+        <div class="step">
+          <div class="num mono">4</div>
+          <div><h3>Confirm and send</h3><p>Approve the transaction in your wallet. The transfer is broadcast directly to the chain.</p></div>
+        </div>
+      </div>
+
+      <div class="banner" style="margin-top:36px;">
+        <div>
+          <strong>Sender and receiver must use the same network.</strong>
+          <p>Sending USDT to an address on a mismatched network results in permanent loss of funds. Always verify the network before confirming.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">FAQ</div>
+        <h2>Common questions</h2>
+      </div>
+      <details open>
+        <summary>Is this custodial?</summary>
+        <p>No. This tool connects directly to your wallet — you retain full control of your funds at all times. Nothing passes through a third-party balance.</p>
+      </details>
+      <details>
+        <summary>What's the difference between TRC20 and ERC20?</summary>
+        <p>Both are USDT token standards on different blockchains. TRC20 (Tron) typically has lower fees and faster confirmation than ERC20 (Ethereum).</p>
+      </details>
+      <details>
+        <summary>What are the fees?</summary>
+        <p>Network gas fees apply and vary by chain and congestion. Tron (TRC20) generally has the lowest fees of the three supported networks.</p>
+      </details>
+      <details>
+        <summary>Which wallets are supported?</summary>
+        <p>MetaMask for EVM-compatible chains (Ethereum, BNB Smart Chain) and TronLink for Tron.</p>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer id="support">
+  <div class="wrap">
+    <div class="support-card">
+      <h2>💬 Community &amp; Support</h2>
+      <p>Thank you for using this project. If you have questions, need technical support, want to report a bug, or would like to discuss custom solutions, join our official Telegram community. We aim to respond as quickly as possible.</p>
+      <ul class="support-list">
+        <li>Installation guidance</li>
+        <li>Technical support</li>
+        <li>Bug reports</li>
+        <li>Feature suggestions</li>
+        <li>General questions</li>
+      </ul>
+      <a class="btn btn-primary" href="https://t.me/PTxSoftwareStore" target="_blank" rel="noopener">Join @PTxSoftwareStore →</a>
+    </div>
+
+    <div class="foot-links">
+      <span>© 2026 PTx Software Store</span>
+      <div style="display:flex; gap:20px;">
+        <a href="https://nodejs.org/en" target="_blank" rel="noopener">Node.js</a>
+        <a href="https://t.me/PTxSoftwareStore" target="_blank" rel="noopener">Telegram</a>
+        <a href="https://ptxsoftwarestore.netlify.app" target="_blank" rel="noopener">ptxsoftwarestore.</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+  </html>
+          
